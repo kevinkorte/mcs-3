@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  
+  devise_for :admins, controllers: {
+    sessions: "admin/sessions"
+  }
+  
+  devise_scope :admin do
+  get "admin", to: "admin/dashboard#home"
+end
+  root to: 'static#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
