@@ -1,6 +1,6 @@
 class CreateMachineTable < ActiveRecord::Migration
   def change
-    create_table :machine_tables do |t|
+    create_table :machines do |t|
       t.string :title
     end
   end
