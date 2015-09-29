@@ -5,8 +5,13 @@ Rails.application.routes.draw do
   }
   
   devise_scope :admin do
-  get "admin", to: "admin/dashboard#home"
-end
+    get "admin", to: "admin/dashboard#home"
+  end
+  
+  namespace "admin" do
+    resources :machines
+  end
+
   root to: 'static#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

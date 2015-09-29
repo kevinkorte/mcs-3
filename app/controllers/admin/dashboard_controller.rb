@@ -1,6 +1,6 @@
 class Admin::DashboardController < ApplicationController
-    
-    def home
+    before_action :authenticate_admin!
+    def index
         
     end
 end
