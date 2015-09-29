@@ -1,4 +1,4 @@
-<%= simple_form_for new_admin_machine_path(@machine) do |f| %>
+<%= simple_form_for([:admin, @machine]) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">

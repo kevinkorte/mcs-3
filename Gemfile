@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'simple_form'
+gem 'swiftype'
+gem 'delayed_job_active_record'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'

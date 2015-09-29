@@ -17,12 +17,17 @@ class Admin::MachinesController < ApplicationController
     
     def create
         @machine = Machine.new(machine_params)
+        if @machine.save
+            redirect_to @machine, notice: "New Machine Created"
+        else
+            render :new
+        end
         
     end
     
     
     private
         def machine_params
-            params[:machine]
+            params.require(:machine).permit(:title)
         end
 end
