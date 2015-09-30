@@ -1,33 +1,27 @@
 class Admin::MachinesController < ApplicationController
     before_action :authenticate_admin!
-    
+    layout "admin"
     def index
-        
-    end
-    
-    def show
+        @machine = Machine.all
     end
     
     def new
         @machine = Machine.new
     end
     
-    def edit
-    end
-    
     def create
         @machine = Machine.new(machine_params)
         if @machine.save
-            redirect_to @machine, notice: "New Machine Created"
+            flash[:success] = "New machine successfully added!"
+            redirect_to admin_machines_path
         else
             render :new
         end
-        
     end
     
-    
-    private
+     private
         def machine_params
             params.require(:machine).permit(:title)
         end
+        
 end
