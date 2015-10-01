@@ -2,11 +2,15 @@
   <div class="row">
     <div class="col-md-12">
       
+      <!--TODO:-->
       
+      <!--Form needs to post properly when submitted-->
       
       <%= simple_form_for([:admin, @machine]) do |f| %>
         <%= f.error_notification %>
-        
+        <%= f.fields_for :years do |year| %>
+          <%= year.select "year", options_from_collection_for_select(Year.all, "id", "year"), {include_blank: true},{ :class => "form-control" } %>
+        <% end %>
         <div class="form-inputs">
             <%= f.input :title %>
         </div>

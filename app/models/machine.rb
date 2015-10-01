@@ -1,5 +1,6 @@
 class Machine < ActiveRecord::Base
-    
+    has_many :machine_details
+    has_many :years, :through => :machine_details
     
     after_save :enqueue_create_or_update_document_job
     
