@@ -22,7 +22,7 @@ class Admin::MachinesController < ApplicationController
     
      private
         def machine_params
-            params.require(:machine).permit(:title, machine_details_attributes: [:year_id])
+            params.require(:machine).permit(:title, machine_details_attributes: [:year_id, :group_id])
         end
         
 end

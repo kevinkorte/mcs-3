@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001051459) do
+ActiveRecord::Schema.define(version: 20151002152809) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -51,11 +51,18 @@ ActiveRecord::Schema.define(version: 20151001051459) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
+  create_table "groups", force: :cascade do |t|
+    t.string   "group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "machine_details", force: :cascade do |t|
     t.integer  "year_id"
     t.integer  "machine_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "group_id"
   end
 
   create_table "machines", force: :cascade do |t|
