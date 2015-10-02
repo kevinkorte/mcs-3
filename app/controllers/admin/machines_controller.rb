@@ -7,6 +7,7 @@ class Admin::MachinesController < ApplicationController
     
     def new
         @machine = Machine.new
+        @machine.machine_details.build.build_year
     end
     
     def create
@@ -21,7 +22,7 @@ class Admin::MachinesController < ApplicationController
     
      private
         def machine_params
-            params.require(:machine).permit(:title)
+            params.require(:machine).permit(:title, machine_details_attributes: [:year_id])
         end
         
 end

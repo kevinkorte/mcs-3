@@ -8,12 +8,13 @@
       
       <%= simple_form_for([:admin, @machine]) do |f| %>
         <%= f.error_notification %>
-        <%= f.fields_for :years do |year| %>
-          <%= year.select "year", options_from_collection_for_select(Year.all, "id", "year"), {include_blank: true},{ :class => "form-control" } %>
+        <%= f.fields_for :machine_details do |year| %>
+          <%= year.collection_select :year_id, Year.all, :id, :year %>
         <% end %>
         <div class="form-inputs">
             <%= f.input :title %>
         </div>
+        
 
         <div class="form-actions">
           <%= f.button :submit %>
