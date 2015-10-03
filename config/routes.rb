@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :machines
     resources :groups
     resources :years
+    resources :makes
   end
   
   resources :machines
