@@ -1,28 +1,47 @@
+<script>
+$(document).ready(function() {
+  $("#select-group").select2({
+    placeholder: "Select a state"
+  });
+  $("#select-year").select2();
+  $("#select-make").select2();
+});
+</script>
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      
-      <!--TODO:-->
-      
-      <!--Form needs to post properly when submitted-->
-      
-      <%= simple_form_for([:admin, @machine]) do |f| %>
-        <%= f.error_notification %>
-        <%= f.fields_for :machine_details do |ff| %>
-          <%= ff.collection_select :year_id, Year.all, :id, :year %>
-          <%= ff.collection_select :group_id, Group.all, :id, :group %>
-          <%= ff.collection_select :make_id, Make.all, :id, :make %>
-        <% end %>
-        <div class="form-inputs">
-            <%= f.input :title %>
-        </div>
-        
-
-        <div class="form-actions">
-          <%= f.button :submit %>
-        </div>
-      <% end %>
-
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<!--TODO:-->
+<!--Form needs to post properly when submitted-->
+<%= simple_form_for([:admin, @machine]) do |f| %>
+<%= f.error_notification %>
+<div class="row">
+<div class="col-md-4">
+<%= f.fields_for :machine_details do |ff| %>
+<div class="form-group">
+  <%= ff.collection_select :year_id, Year.all, :id, :year, {}, {:id => 'select-year', :style => 'width: 100%;'} %>
+</div>
+<div class="form-group">
+  <%= ff.collection_select :group_id, Group.all, :id, :group, {}, {:id => 'select-group', :style => 'width: 100%;'} %>
+      </div>
+<div class="form-group">
+    <%= ff.collection_select :make_id, Make.all, :id, :make, {}, {:id => 'select-make', :style => 'width: 100%;'} %>
+</div>
+<% end %><!-- ends fields_for -->
+</div><!--/.col-md-4-->
+<div class="col-md-8">
+<div class="form-inputs">
+  <%= f.input :title %>
+</div>
+</div><!--/.col-md-8-->
+</div><!--/.row-->
+<div class="row">
+<div class="col-md-4">
+<div class="form-actions">
+  <%= f.button :submit %>
+</div>
+</div>
+</div>
+<% end %>
+</div>
+</div>
 </div>
