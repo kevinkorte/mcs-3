@@ -5,6 +5,7 @@ $(document).ready(function() {
   });
   $("#select-year").select2();
   $("#select-make").select2();
+  $("#select-model").select2();
 });
 </script>
 <div class="container">
@@ -25,6 +26,9 @@ $(document).ready(function() {
       </div>
 <div class="form-group">
     <%= ff.collection_select :make_id, Make.all, :id, :make, {}, {:id => 'select-make', :style => 'width: 100%;'} %>
+</div>
+<div class="form-group">
+    <%= ff.collection_select :identifier_id, Identifier.all, :id, :identifier, {}, {:id => 'select-model', :style => 'width: 100%;'} %>
 </div>
 <% end %><!-- ends fields_for -->
 </div><!--/.col-md-4-->
