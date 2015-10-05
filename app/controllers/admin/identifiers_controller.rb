@@ -1,6 +1,15 @@
 class Admin::IdentifiersController < ApplicationController
     before_action :authenticate_admin!
     layout "admin"
+    def index
+        #identifier = Identifier.ransack(params[:q])
+        @identifier = Identifier.where('identifier LIKE ?', "%#{params[:q][:term]}%")
+        #@neighborhood = Neighborhood.select("id, name").where("name LIKE ?", "#{params[:name]}%").order(:name).limit(10)
+        respond_to do |format|
+          format.html
+          format.json { render json: @identifier }
+        end
+    end
     def new
         @identifier = Identifier.new
     end
