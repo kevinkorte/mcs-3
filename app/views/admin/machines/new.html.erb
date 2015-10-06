@@ -1,18 +1,17 @@
 <script>
 $(document).ready(function() {
-  $("#select-group").select2({
-    placeholder: "Select a state"
-  });
-  $("#select-year").select2();
-  $("#select-make").select2();
-  $('.js-data-example-ajax').select2({
+  $("#select-group").select2({placeholder: "Select a type"});
+  $("#select-year").select2({placeholder: "Select a year"});
+  $("#select-make").select2({placeholder: "Select a make"});
+  $("#select-model").select2({
+    placeholder: "Select a model",
+    minimumInputLength: 1,
     ajax: {
-      url: 'https://mcs-3-kevinkorte.c9.io/admin/identifiers.json',
+      url: "https://mcs-3-kevinkorte.c9.io/admin/identifiers.json",
       dataType: 'json',
       delay: 250,
       data: function(term, page) { return { q: term, page: page, per: 10 } },
-      results: function(data, page) { return data },
-      minimumInputLength: 1,
+      processResults: function (data) { return { results: data } },
     }
   });
 });
@@ -28,18 +27,18 @@ $(document).ready(function() {
 <div class="col-md-4">
 <%= f.fields_for :machine_details do |ff| %>
 <div class="form-group">
-  <%= ff.collection_select :year_id, Year.all, :id, :year, {}, {:id => 'select-year', :style => 'width: 100%;'} %>
+  <%= ff.collection_select :year_id, Year.all, :id, :year, {:prompt => ''}, {:id => 'select-year', :style => 'width: 100%;'} %>
 </div>
 <div class="form-group">
-  <%= ff.collection_select :group_id, Group.all, :id, :group, {}, {:id => 'select-group', :style => 'width: 100%;'} %>
+  <%= ff.collection_select :group_id, Group.all, :id, :group, {:prompt => ''}, {:id => 'select-group', :style => 'width: 100%;'} %>
       </div>
 <div class="form-group">
-    <%= ff.collection_select :make_id, Make.all, :id, :make, {}, {:id => 'select-make', :style => 'width: 100%;'} %>
+    <%= ff.collection_select :make_id, Make.all, :id, :make, {:prompt => ''}, {:id => 'select-make', :style => 'width: 100%;'} %>
 </div>
 <div class="form-group">
-  <select class="js-data-example-ajax">
-  <option value="3620194" selected="selected">select2/select2</option>
-</select>
+  <select id="select-model" style="width: 100%;">
+    <option></option>
+  </select>
 </div>
 <% end %><!-- ends fields_for -->
 </div><!--/.col-md-4-->
