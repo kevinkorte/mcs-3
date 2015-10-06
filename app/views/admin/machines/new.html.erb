@@ -15,14 +15,24 @@ $(document).ready(function() {
     }
   });
   
-  var machine = '';
   $( "#select-year" ).on("change", function() {
-    machine = $(this).val();
-    $('#machine_title').val(machine);
-    console.log(machine);
+    year = $(this).select2('data');
+    year = year[0].text;
+    $('#machine_title').val(year);
   });
+  $('#select-make').on('change', function() {
+    make = $(this).select2('data');
+    make = year + " " + make[0].text;
+    $('#machine_title').val(make);
+  })
+  $('#select-model').on('change', function() {
+    model = $(this).select2('data');
+    model = make + " " + model[0].text;
+    $('#machine_title').val(model);
+  })
 });
 </script>
+
 <div class="container">
 <div class="row">
 <div class="col-md-12">
