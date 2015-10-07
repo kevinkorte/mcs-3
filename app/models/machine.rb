@@ -6,6 +6,9 @@ class Machine < ActiveRecord::Base
     has_many :group, :through => :machine_details
     has_many :makes, :through => :machine_details
     
+    validates :title, presence: true
+    validates :title, uniqueness: { case_sensitive: false }
+    
     accepts_nested_attributes_for :machine_details
     
     after_save :enqueue_create_or_update_document_job
