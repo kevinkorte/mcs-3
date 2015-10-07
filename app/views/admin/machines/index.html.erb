@@ -18,7 +18,7 @@
                         <td><%= m.id %></td>
                         <td><%= m.title %></td>
                         <td><%= time_ago_in_words(m.created_at) %> ago</td>
-                        <td><a class="hoverable-links" href="<%= machine_path(m) %>" data-toggle="tooltip" data-placement="top" title="Go To Page"><span class="glyphicon glyphicon-new-window"></span></a></td>
+                        <td><a class="hoverable-links" href="<%= machine_path(m) %>" data-toggle="tooltip" data-placement="top" title="Go To Page" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a></td>
                         <td><a class="hoverable-links" href="<%= edit_admin_machine_path(m) %>" data-toggle="tooltip" data-placement="top" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
                     </tr>
                     <% end %>

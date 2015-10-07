@@ -5,6 +5,7 @@ class Machine < ActiveRecord::Base
     has_many :years, :through => :machine_details
     has_many :group, :through => :machine_details
     has_many :makes, :through => :machine_details
+    has_many :identifiers, :through => :machine_details
     
     validates :title, presence: true
     validates :title, uniqueness: { case_sensitive: false }
