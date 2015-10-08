@@ -34,19 +34,22 @@
                 </ul>
                 <form class="navbar-form navbar-left" role="search">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" id="admin-search" placeholder="Search">
                   </div>
-                  <button type="submit" class="btn btn-default">Submit</button>
                 </form>
+               
                 <ul class="nav navbar-nav navbar-right">
                   <li><a href="#">Link</a></li>
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add + <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                      <li class="dropdown-header">Add Machine</li>
                       <li><%= link_to "Type", new_admin_group_path %></li>
                       <li><%= link_to "Year", new_admin_year_path %></li>
                       <li><%= link_to "Make", new_admin_make_path %></li>
                       <li><%= link_to "Model", new_admin_identifier_path %></li>
+                      <li role="separator" class="divider"></li>
+                      <li class="dropdown-header">Add Part</li>
                     </ul>
                   </li>
                   <li>
@@ -61,3 +64,19 @@
         </div>
     </div>
 </div>
+
+<script>
+  
+$(document).ready(function(){
+  $('#admin-search').swiftype({
+    searchFields: {'mcs': ['title']},
+    engineKey: '<%= ENV['SWIFTYPE_ENGINE_KEY'] %>',
+    renderFunction: customRenderFunction,
+  });
+  
+  
+  var customRenderFunction = function(mcs, item) {
+    var out = '<p class="title">' + item['title'] + '</p>';
+  };
+});
+</script>

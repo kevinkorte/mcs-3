@@ -1,8 +1,19 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <form>
+      Search your site: <input type='text' id='st-search-input' class='st-search-input' />
+    </form>
+    <div id="st-results-container">
+        
+    </div>
+        <div class="col-md-9 col-md-offset-3">
             <%= will_paginate @machine %>
-            <table class="table">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -19,12 +30,24 @@
                         <td><%= m.title %></td>
                         <td><%= time_ago_in_words(m.created_at) %> ago</td>
                         <td><a class="hoverable-links" href="<%= machine_path(m) %>" data-toggle="tooltip" data-placement="top" title="Go To Page" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a></td>
-                        <td><a class="hoverable-links" href="<%= edit_admin_machine_path(m) %>" data-toggle="tooltip" data-placement="top" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        <td><a class="hoverable-links" href="<%= edit_admin_machine_path(m) %>" data-toggle="tooltip" data-placement="top" title="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>
                     </tr>
                     <% end %>
                 </tbody>
             </table>
             <%= will_paginate @machine %>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Quick Add Machine Data</div>
+                <div class="list-group">
+                    <%= link_to "Type", new_admin_group_path, class: 'list-group-item' %>
+                    <%= link_to "Year", new_admin_year_path, class: 'list-group-item' %>
+                    <%= link_to "Make", new_admin_make_path, class: 'list-group-item' %>
+                    <%= link_to "Model", new_admin_identifier_path, class: 'list-group-item' %>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -40,5 +63,11 @@ $(document).ready(function(){
     },function(){
         $(this).find('.hoverable-links').css('visibility', 'hidden');
     });
+    
+    $('#st-search-input').swiftypeSearch({
+  resultContainingElement: '#st-results-container',
+  engineKey: '<%= ENV['SWIFTYPE_ENGINE_KEY'] %>',
+  fetchFields: {'mcs': ['title']},
+});
 })
 </script>

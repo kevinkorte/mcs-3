@@ -15,4 +15,7 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require select2
+//= require jquery.hashchange.min
+//= require jquery.swiftype.search
+//= require swiftype.autocomplete.js
 //= require_tree .
