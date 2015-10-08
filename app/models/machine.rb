@@ -10,6 +10,9 @@ class Machine < ActiveRecord::Base
     validates :title, presence: true
     validates :title, uniqueness: { case_sensitive: false }
     
+    extend FriendlyId
+    friendly_id :title, use: :slugged
+    
     accepts_nested_attributes_for :machine_details
     
     after_save :enqueue_create_or_update_document_job
