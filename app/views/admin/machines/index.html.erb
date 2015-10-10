@@ -9,13 +9,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3" id="st-results-container">
-            <ul class="nav nav-pills nav-stacked" id="machine-search-container">
-                
-            </ul>
-        
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-md-offset-3">
             
             <table class="table table-hover">
                 <thead>
@@ -27,9 +21,9 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="kk">
                     <% @machine.each do |m| %>
-                    <tr id = "kk">
+                    <tr>
                         <td><%= m.id %></td>
                         <td><%= m.title %></td>
                         <td><%= time_ago_in_words(m.created_at) %> ago</td>
@@ -69,7 +63,18 @@ $(document).ready(function(){
     });
     
     var searchRenderFunction = function(documentType, item) {
-        return '<li role="presentation"><a href="' + item['url'] + '">' + item['title'] + '</a></li>';
+        var get_url; var split; var link; var html;
+        html = '<tr>';
+        html += '<td>' + item['external_id'] + '</td>';
+        html += '<td>' + item['title'] + '</td>';
+        html += '<td>' + item['created_at'] + '</td>';
+        get_url = item['url'];
+        split = get_url.split('machines');
+        link = split[0] + 'admin/machines' + split[1] + '/edit';
+        html += '<td><a class="hoverable-links" href="' + get_url + '" data-toggle="tooltip" data-placement="top" title="Go To Page" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a></td>';
+        html += '<td><a class="hoverable-links" href="' + link + '" data-toggle="tooltip" data-placement="top" title="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>';
+        html += '</tr>';
+        return html;
     };
     
     $('#st-search-input').swiftypeSearch({
