@@ -3,15 +3,19 @@
         <form>
       Search your site: <input type='text' id='st-search-input' class='st-search-input' />
     </form>
-    <div id="st-results-container">
-        
-    </div>
+    
         <div class="col-md-9 col-md-offset-3">
             <%= will_paginate @machine %>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-3" id="st-results-container">
+            <ul class="nav nav-pills nav-stacked" id="machine-search-container">
+                
+            </ul>
+        
+        </div>
+        <div class="col-md-6">
             
             <table class="table table-hover">
                 <thead>
@@ -25,7 +29,7 @@
                 </thead>
                 <tbody>
                     <% @machine.each do |m| %>
-                    <tr>
+                    <tr id = "kk">
                         <td><%= m.id %></td>
                         <td><%= m.title %></td>
                         <td><%= time_ago_in_words(m.created_at) %> ago</td>
@@ -64,10 +68,17 @@ $(document).ready(function(){
         $(this).find('.hoverable-links').css('visibility', 'hidden');
     });
     
+    var searchRenderFunction = function(documentType, item) {
+        return '<li role="presentation"><a href="' + item['url'] + '">' + item['title'] + '</a></li>';
+    };
+    
     $('#st-search-input').swiftypeSearch({
-  resultContainingElement: '#st-results-container',
-  engineKey: '<%= ENV['SWIFTYPE_ENGINE_KEY'] %>',
-  fetchFields: {'mcs': ['title']},
-});
+        renderFunction: searchRenderFunction,
+        resultContainingElement: '#kk',
+        engineKey: '<%= ENV['SWIFTYPE_ENGINE_KEY'] %>',
+        fetchFields: {'mcs': ['title']},
+    });
+    
+    
 })
 </script>
