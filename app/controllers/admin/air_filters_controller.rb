@@ -8,6 +8,7 @@ class Admin::AirFiltersController < ApplicationController
     
     def create
         @airfilter = AirFilter.new(airfilter_params)
+        @list_all_af = AirFilter.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 5)
         if @airfilter.save
             redirect_to admin_parts_path
         else
