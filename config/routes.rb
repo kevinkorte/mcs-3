@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :years
     resources :makes
     resources :identifiers
+    resources :parts, :except => [:new]
+    resources :air_filters
   end
   
   resources :machines
