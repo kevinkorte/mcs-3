@@ -1,4 +1,6 @@
 class Admin::MachinesController < ApplicationController
+    before_action :authenticate_admin!
+    layout "admin"
     def index
         @machine = Machine.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 30)
     end
