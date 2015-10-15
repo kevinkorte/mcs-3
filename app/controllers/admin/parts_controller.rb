@@ -13,7 +13,7 @@ class Admin::PartsController < ApplicationController
     
     def edit
         @part = Part.find(params[:id])
-        @all_machines = Machine.all
+        @relative_machines = @part.machines
         @machines = Machine.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
     end
     
