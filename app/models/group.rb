@@ -3,5 +3,5 @@ class Group < ActiveRecord::Base
     has_many :machines, :through => :machine_details
     
     validates :group, presence: true
-    validates :group, uniqueness: { case_sensitive: false }
+    validates :group, uniqueness: { case_sensitive: true }
 end

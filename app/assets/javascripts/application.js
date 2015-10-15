@@ -18,4 +18,5 @@
 //= require jquery.hashchange.min.js
 //= require jquery.swiftype.search.js
 //= require swiftype.autocomplete.js
+//= require admin.edit.js
 //= require_tree .
