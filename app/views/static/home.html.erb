@@ -1,6 +1,42 @@
-
-<div class="hero-search">
-    <form>
-      <input type='text' id='st-search-input' class='hero-search-input'/>
-    </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="center-text">
+                Finding information about your machine shouldn't be hard.
+            </h3>
+            <h3 class="center-text">
+                <small>We're growing with <%= number_with_delimiter(@machines, :delimiter => ',') %> machines and <%= number_with_delimiter(@parts, :delimiter => ',') %> parts.</small>
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="hero-search">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="sr-only" for="st-search-input">Search</label>
+                        <div class="col-sm-12">
+                            <input type="search" class="form-control hero-search-input" id="hero-search-input" placeholder="Search for a machine">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+  
+$(document).ready(function(){
+  $('#hero-search-input').swiftype({
+    searchFields: {'mcs': ['title']},
+    engineKey: '<%= ENV['SWIFTYPE_ENGINE_KEY'] %>',
+    renderFunction: customRenderFunction,
+  });
+  
+  
+  var customRenderFunction = function(mcs, item) {
+    var out = '<p class="title">' + item['title'] + '</p>';
+  };
+});
+</script>

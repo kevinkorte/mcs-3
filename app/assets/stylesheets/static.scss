@@ -2,7 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.hero-search {
-    margin: 40px;
-    padding: 8px 4px;
+.tagline {
+    //front page tagline
+    padding-top: 80px;
+}
+
+.nav-search-input {
+    border-bottom: 1px solid #e7e7e7;
 }
