@@ -1,87 +1,22 @@
 <div class="container">
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Machine Cheat Sheet <span class="label label-warning">Beta</span></a>
-      <% if controller_name == "machines" && action_name == "show" %>
-        <p class="navbar-text navbar-right"><%= @machine.title %></p>
-      <% end %>
-      
-      
-      
-    </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-     
-      <div class="nav navbar-nav navbar-right">
-        <button id="search-button" class="btn btn-block btn-info btn-xs">Search Machine</button>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to root_path, class: "navbar-brand" do %>
+          Machine Cheat Sheet  <span class="label label-warning">Beta</span>
+        <% end %>
+        <% if controller_name == "machines" && action_name == "show" %>
+          <p class="navbar-text navbar-right"><%= @machine.title %></p>
+        <% end %>
       </div>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+    </div><!-- /.container-fluid -->
+  </nav>
 </div>
-<div class="search-overlay">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label class="sr-only" for="overlay-search-input">Search</label>
-            <div class="col-sm-12">
-              <input type="email" class="form-control overlay-search-input" id="overlay-search-input" placeholder="Search for a machine">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-md-2">
-        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-if($('#nav-search-input').length > 0) {
-  var length = $('#nav-search-input').val().length;
-  $('#nav-search-input').css('width', length * 8 + "px" );
-  
-  console.log($('#nav-search-input').val().length);
-}
-  
-$(document).ready(function(){
-  $('#overlay-search-input').swiftype({
-    searchFields: {'mcs': ['title']},
-    engineKey: '<%= ENV['SWIFTYPE_ENGINE_KEY'] %>',
-    renderFunction: customRenderFunction,
-  });
-  
-  var customRenderFunction = function(mcs, item) {
-    var out = '<p class="title">' + item['title'] + '</p>';
-  };
-  
-  var open = false;
-  $('.search-overlay').hide();
-  $('#search-button').on('click', function(){
-    $('.search-overlay').show();
-    open = true;
-    console.log(open);
-  })
-  $('.close').on('click', function() {
-    $('.search-overlay').hide();
-    open = false;
-    console.log(open);
-  });
-  $('body').on('click', function() {
-    if(open) {
-      console.log('open');
-    }
-  })
-});
-</script>
