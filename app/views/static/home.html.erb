@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-md-12">
             <h3 class="center-text">
-                Finding information about your machine shouldn't be hard.
+               We belive finding what parts fit your powersport machine shouldn't be hard.<br>
+               We're providing a solution to solve this.
             </h3>
             <h3 class="center-text">
                 <small>We're growing with <%= number_with_delimiter(@machines, :delimiter => ',') %> machines and <%= number_with_delimiter(@parts, :delimiter => ',') %> parts.</small>
@@ -23,13 +24,18 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <ul id="results" class="st-result-listing"></ul>
+        </div>
+    </div>
 </div>
 
 <script>
   
 $(document).ready(function(){
   $('#hero-search-input').swiftype({
-    searchFields: {'mcs': ['title']},
+    fetchFields: {'mcs': ['title']},
     engineKey: '<%= ENV['SWIFTYPE_ENGINE_KEY'] %>',
     renderFunction: customRenderFunction,
   });
@@ -38,5 +44,18 @@ $(document).ready(function(){
   var customRenderFunction = function(mcs, item) {
     var out = '<p class="title">' + item['title'] + '</p>';
   };
+  
+  var searchrender = function(document_type, item) {
+    var out;
+    out = '<li><a href="' + item['url'] + '"><p class="title">' + item['title'] + '</p></a></li>';
+    return out;
+};
+  
+  $('#hero-search-input').swiftypeSearch({
+        renderFunction: searchrender,
+        searchFields: {'mcs': ['title']},
+        resultContainingElement: '#results',
+        engineKey: '<%= ENV['SWIFTYPE_ENGINE_KEY'] %>',
+    });
 });
 </script>
