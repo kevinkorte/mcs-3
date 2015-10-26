@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
   resources :users
-  resources :tests
   devise_for :admins, controllers: {
     sessions: "admin/sessions"
   }
