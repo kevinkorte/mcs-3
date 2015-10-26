@@ -1,2 +1,2 @@
-web:    bundle exec rails s -p $PORT -b $IP
+web:    rails s
 worker: bundle exec rake jobs:work
