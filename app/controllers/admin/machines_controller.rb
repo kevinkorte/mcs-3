@@ -21,12 +21,34 @@ class Admin::MachinesController < ApplicationController
     end
     
     def edit
+        @machine = Machine.friendly.find(params[:id])
+        @group_id = @machine.group.map do |group| group.id end
+        @year_id = @machine.years.map do |year| year.id end
+        @make_id = @machine.makes.map do|make| make.id end
+        @model_id = @machine.identifiers.map do |model| model.id end
         
+    end
+    
+################################################
+
+#This update is duplicating
+
+################################################
+    
+    def update
+        @machine = Machine.friendly.find(params[:id])
+            @machine.update_attributes(machine_params)
+            flash[:success] = "Updated Successfully!"
+            if @machine.save
+                redirect_to action: "index"
+            else
+                render "edit"
+            end
     end
     
     private
         def machine_params
-            params.require(:machine).permit(:title, machine_details_attributes: [:year_id, :group_id, :make_id, :identifier_id])
+            params.require(:machine).permit(:id,:title, machine_details_attributes: [:year_id, :group_id, :make_id, :identifier_id, :id])
         end
         
 end

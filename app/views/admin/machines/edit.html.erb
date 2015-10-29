@@ -1,0 +1,79 @@
+<script>
+$(document).ready(function() {
+  $("#select-group").select2({placeholder: "Select a type"});
+  $("#select-year").select2({placeholder: "Select a year"});
+  $("#select-make").select2({placeholder: "Select a make"});
+  $("#select-model").select2({
+    placeholder: "Select a model",
+    minimumInputLength: 1,
+    ajax: {
+      url: "<%= admin_identifiers_path(format: 'json') %>",
+      dataType: 'json',
+      delay: 250,
+      data: function(term, page) { return { q: term, page: page, per: 10 } },
+      processResults: function (data) { return { results: data } },
+    }
+  });
+  
+  $( "#select-year" ).on("change", function() {
+    year = $(this).select2('data');
+    year = year[0].text;
+    $('#machine_title').val(year);
+  });
+  $('#select-make').on('change', function() {
+    make = $(this).select2('data');
+    make = year + " " + make[0].text;
+    $('#machine_title').val(make);
+  })
+  $('#select-model').on('change', function() {
+    model = $(this).select2('data');
+    model = make + " " + model[0].text;
+    $('#machine_title').val(model);
+  })
+});
+</script>
+
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<!--TODO:-->
+<!--Form needs to post properly when submitted-->
+<%= simple_form_for([:admin, @machine]) do |f| %>
+<%= f.error_notification %>
+<div class="row">
+<div class="col-md-4">
+<%= f.fields_for :machine_details do |ff| %>
+<div class="form-group">
+  <%= ff.collection_select :group_id, Group.all.order(group: :asc), :id, :group, {:prompt => ''}, {:id => 'select-group', :style => 'width: 100%;'} %>
+</div>
+<div class="form-group">
+  <%= ff.collection_select :year_id, Year.all.order(year: :desc), :id, :year, {:prompt => ''}, {:id => 'select-year', :style => 'width: 100%;'} %>
+</div>
+<div class="form-group">
+    <%= ff.collection_select :make_id, Make.all.order(make: :asc), :id, :make, {:prompt => ''}, {:id => 'select-make', :style => 'width: 100%;'} %>
+</div>
+<div class="form-group">
+    <%= ff.collection_select :identifier_id, Identifier.all.limit(10), :id, :identifier, {:prompt => ''}, {:id => 'select-model', :style => 'width: 100%'} %>
+  <!--<select id="select-model" style="width: 100%;" name="machine[machine_details_attributes][0][identifier_id]">-->
+  <!--  <option></option>-->
+  <!--</select>-->
+</div>
+<% end %><!-- ends fields_for -->
+</div><!--/.col-md-4-->
+<div class="col-md-8">
+<div class="form-inputs">
+  <%= f.input :title %>
+</div>
+</div><!--/.col-md-8-->
+</div><!--/.row-->
+<div class="row">
+<div class="col-md-4">
+<div class="form-actions">
+  <%= f.button :submit %>
+</div>
+</div>
+</div>
+<% end %>
+</div>
+</div>
+</div>
