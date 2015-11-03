@@ -13,28 +13,22 @@
                 </div>
                 <button type="submit" class="btn btn-default">Search</button>
             </form>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Created</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="kk">
-                    <% @machine.each do |m| %>
-                    <tr>
-                        <td><%= m.id %></td>
-                        <td><%= m.title %></td>
-                        <td><%= time_ago_in_words(m.created_at) %> ago</td>
-                        <td><a class="hoverable-links" href="<%= machine_path(m) %>" data-toggle="tooltip" data-placement="top" title="Go To Page" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a></td>
-                        <td><a class="hoverable-links" href="<%= edit_admin_machine_path(m) %>" data-toggle="tooltip" data-placement="top" title="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>
-                    </tr>
-                    <% end %>
-                </tbody>
-            </table>
+            <div class="list-group">
+                <% @machine.each do |m| %>
+                <a href="<%= machine_path(m) %>" class="list-group-item">
+                    <h3 class="list-group-item-heading">#<%=m.id%> <%=m.title%></h3>
+                    <p class="list-group-item-text text-muted">
+                        <%= m.group.pluck(:group).join(" ") %> |
+                        <%= m.years.pluck(:year).join(" ") %> |
+                        <%= m.makes.pluck(:make).join(" ") %> |
+                        <%= m.identifiers.pluck(:identifier).join(" ")%>
+                    </p>
+                </a>
+                <a href="<%= edit_admin_machine_path(m) %>" class="list-group-item">
+                    <p class="list-group-item-text text-danger"><span class="glyphicon glyphicon-edit"></span> Edit <%= m.title %></p>
+                </a>
+                <% end %>
+            </div>
             <%= will_paginate @machine %>
         </div>
         <div class="col-md-3">
